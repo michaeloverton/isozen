@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour
     public bool canMove = false;
 
     void Update() {
+        // transform.rotation = transform.rotation * Quaternion.AngleAxis(5, Vector3.up);
+
         if(canMove) {
             // Handle mouse inputs.
             if(Input.GetMouseButton(0)) {
@@ -27,8 +29,12 @@ public class CameraController : MonoBehaviour
                 // Quaternion horizontalRotation = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * mouseHorizontalSpeed * Time.deltaTime, Vector3.up);
                 // transform.position = horizontalRotation * transform.position;
 
-                transform.RotateAround(cameraFocus, Vector3.up, mouseHorizontalSpeed * Input.GetAxis("Mouse X") * Time.deltaTime);
+                // transform.RotateAround(cameraFocus, Vector3.up, mouseHorizontalSpeed * Input.GetAxis("Mouse X") * Time.deltaTime);
                 // transform.RotateAround(cameraFocus, Vector3.left, mouseVerticalSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime);
+
+
+                transform.rotation = transform.rotation * Quaternion.AngleAxis(mouseHorizontalSpeed * Input.GetAxis("Mouse X") * Time.deltaTime, Vector3.up);
+                transform.rotation = transform.rotation * Quaternion.AngleAxis(mouseVerticalSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime, Vector3.left);
                 
                 // TRY THIS
                 // Quaternion.AngleAxis()
@@ -95,9 +101,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void LateUpdate() {
-        transform.LookAt(cameraFocus);
-    }
+    // void LateUpdate() {
+    //     transform.LookAt(cameraFocus);
+    // }
 
     public bool isSplitting() {
         return splitting;
