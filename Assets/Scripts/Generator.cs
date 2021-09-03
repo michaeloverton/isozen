@@ -176,7 +176,7 @@ public class Generator : MonoBehaviour
         Log(allRooms.Count + " rooms created");
 
         // Allow the controller to move.
-        controller.setCanMove(true);
+        // controller.setCanMove(true);
     }
 
     void Log(string message) {
