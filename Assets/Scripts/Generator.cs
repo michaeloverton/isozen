@@ -7,10 +7,10 @@ public class Generator : MonoBehaviour
     public CameraController controller;
     public List<GameObject> rooms;
     int currentRooms = 0;
-    public int complexity = 200;
     public bool debug = false;
     private List<int> randomizedRoomIndexes = new List<int>();
     private bool randomScalingOn = false;
+    private int complexity = 0;
 
 
     void Start()
@@ -28,6 +28,15 @@ public class Generator : MonoBehaviour
         if(Random.Range(0,2) == 1) {
             Debug.Log("random scaling on");
             randomScalingOn = true;
+        }
+
+        // Set the complexity, which has not been destroyed from the menu scene.
+        Complexity c = GameObject.FindObjectOfType<Complexity>();
+        // If we can't find it, just set complexity to default value.
+        if(c != null) {
+            complexity = c.getComplexity();
+        } else {
+            complexity = 500;
         }
 
         StartCoroutine(build());

@@ -83,8 +83,10 @@ namespace UnityStandardAssets.Cameras
             var x = 0f;
             var y = 0f;
             if(Input.GetMouseButton(0)) {
-                x = CrossPlatformInputManager.GetAxis("Mouse X");
-                y = CrossPlatformInputManager.GetAxis("Mouse Y");
+                // x = CrossPlatformInputManager.GetAxis("Mouse X");
+                // y = CrossPlatformInputManager.GetAxis("Mouse Y");
+                x = Input.GetAxis("Mouse X");
+                y = Input.GetAxis("Mouse Y");
             }
 
             if (Input.touchCount == 1) {
