@@ -164,15 +164,6 @@ public class Generator : MonoBehaviour
             room.SetActive(true);
         }
 
-        // Finally, disable all the bounding boxes we used for construction.
-        foreach(GameObject builtRoom in allRooms) {
-            foreach(Renderer boundingBox in builtRoom.GetComponent<RoomConnections>().boundingBoxes) {
-                if(boundingBox) {
-                    boundingBox.enabled = false;
-                }
-            }
-        }
-
         Log(allRooms.Count + " rooms created");
 
         // Allow the controller to move.

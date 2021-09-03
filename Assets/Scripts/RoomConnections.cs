@@ -6,8 +6,6 @@ public class RoomConnections : MonoBehaviour
 {
     public bool isStartRoom = false;
     public List<GameObject> connections;
-    // We use a Renderer instead of Collider because Colliders seemed to be translating incorrectly.
-    public List<Renderer> boundingBoxes;
 
     // GetCollisions gets all the OTHER colliders that collide with this piece. It omits its own collider from the list.
     public List<Collider> GetCollisions(float scalingFactor) {
