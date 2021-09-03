@@ -22,6 +22,9 @@ namespace UnityStandardAssets.Cameras
         [SerializeField] private bool m_VerticalAutoReturn = false;           // set wether or not the vertical axis should auto return
         [SerializeField] private float mobileInputScaling = 0.05f;           // Scale the mobile input deltas because.
         [SerializeField] private float zoomSpeed = 3000f;           // Scale the mobile input deltas because.
+        [SerializeField] private float minZoom = 25f;           // Scale the mobile input deltas because.
+        [SerializeField] private float maxZoom = 400f;           // Scale the mobile input deltas because.
+        [SerializeField] private float mobileZoomScaling = 0.005f;           // Scale the mobile input deltas because.
         public Camera playerCamera; // We need reference to camera to control zoom.
 
         private float m_LookAngle;                    // The rig's y axis rotation.
@@ -127,9 +130,30 @@ namespace UnityStandardAssets.Cameras
         }
 
         private void HandleZoom() {
+            // PC
             float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
             if(mouseScroll > 0 || mouseScroll < 0) {
                 playerCamera.orthographicSize -= mouseScroll * zoomSpeed * Time.deltaTime;
+            }
+
+            // Mobile
+            if (Input.touchCount == 2){
+                // get current touch positions
+                Touch tZero = Input.GetTouch(0);
+                Touch tOne = Input.GetTouch(1);
+                // get touch position from the previous frame
+                Vector2 tZeroPrevious = tZero.position - tZero.deltaPosition;
+                Vector2 tOnePrevious = tOne.position - tOne.deltaPosition;
+
+                float oldTouchDistance = Vector2.Distance (tZeroPrevious, tOnePrevious);
+                float currentTouchDistance = Vector2.Distance (tZero.position, tOne.position);
+
+                // get offset value
+                float deltaDistance = oldTouchDistance - currentTouchDistance;
+                
+                playerCamera.orthographicSize += deltaDistance * zoomSpeed * mobileZoomScaling;
+                // set min and max value of Clamp function upon your requirement
+                playerCamera.orthographicSize = Mathf.Clamp(playerCamera.orthographicSize, minZoom, maxZoom);
             }
         }
     }

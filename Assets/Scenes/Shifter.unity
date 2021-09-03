@@ -236,7 +236,7 @@ MonoBehaviour:
   - {fileID: 3795372062666519164, guid: 31ee60779e0f4b843824731a7450cc31, type: 3}
   - {fileID: 3795372062666519164, guid: eb7f16f344869db4ea57e47cdac3bf98, type: 3}
   - {fileID: 3795372062666519164, guid: 4251116c48819514aa22a7790c46bed9, type: 3}
-  complexity: 2000
+  complexity: 700
   debug: 0
 --- !u!4 &209963845
 Transform:
@@ -1356,6 +1356,9 @@ MonoBehaviour:
   m_VerticalAutoReturn: 0
   mobileInputScaling: 0.05
   zoomSpeed: 3000
+  minZoom: 25
+  maxZoom: 300
+  mobileZoomScaling: 0.000025
   playerCamera: {fileID: 920410805}
 --- !u!1 &918771861
 GameObject:
