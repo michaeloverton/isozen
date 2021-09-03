@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Cameras;
 
 public class Generator : MonoBehaviour
 {
-    public CameraController controller;
+    public CustomFreeLookCamera freeLookCamera;
     public List<GameObject> rooms;
     int currentRooms = 0;
     public bool debug = false;
@@ -47,10 +48,15 @@ public class Generator : MonoBehaviour
 
         List<GameObject> allRooms = new List<GameObject>();
 
+        GameObject structure = new GameObject("Structure");
+
         // Create start room.
         int startRoomIndex = Random.Range(0, rooms.Count);
         GameObject start = Instantiate(rooms[startRoomIndex], new Vector3(0,0,0), Quaternion.identity);
         allRooms.Add(start);
+
+        // Add start to the total structure.
+        start.transform.parent = structure.transform;
 
         // Get all connections leaving start room.
         List<GameObject> connections = start.GetComponent<RoomConnections>().connections;
@@ -169,6 +175,9 @@ public class Generator : MonoBehaviour
                 }
             }
 
+            // Add the room to the total structure.
+            room.transform.parent = structure.transform;
+
             // Activate room since it has been successfully placed.
             room.SetActive(true);
         }
@@ -177,6 +186,9 @@ public class Generator : MonoBehaviour
 
         // Allow the controller to move.
         // controller.setCanMove(true);
+
+        // Set the target to be the center of the created structure.
+        freeLookCamera.SetTarget(structure.transform);
     }
 
     void Log(string message) {

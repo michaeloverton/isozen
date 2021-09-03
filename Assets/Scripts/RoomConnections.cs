@@ -12,16 +12,6 @@ public class RoomConnections : MonoBehaviour
         BoxCollider boundingBox = GetComponent<BoxCollider>();
         // We need to create the overlap box while taking into account the rotation of the bounding box (hence transform.rotation * boundingBox.center)
         Collider[] colliders = Physics.OverlapBox(transform.position + (transform.rotation * (scalingFactor * boundingBox.center)), (scalingFactor * boundingBox.size)/2, transform.rotation);
-
-        /*
-        // Create temp test cube to try to match the overlap box.
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.transform.position = transform.position + (transform.rotation * boundingBox.center);
-        cube.transform.localScale = boundingBox.size;
-        cube.transform.rotation = transform.rotation;
-        cube.name = gameObject.name + " collision tester";
-        cube.SetActive(false);
-        */
         
         // Omit the collider of this room itself from the list of colliders that we are colliding with.
         List<Collider> actualColliders = new List<Collider>();

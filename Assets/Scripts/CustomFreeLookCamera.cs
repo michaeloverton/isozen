@@ -158,5 +158,9 @@ namespace UnityStandardAssets.Cameras
                 playerCamera.orthographicSize = Mathf.Clamp(playerCamera.orthographicSize, minZoom, maxZoom);
             }
         }
+
+        public void UpdateTarget(Transform newTarget) {
+            SetTarget(newTarget);
+        }
     }
 }
