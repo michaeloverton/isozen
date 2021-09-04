@@ -7,6 +7,7 @@ public class Generator : MonoBehaviour
 {
     public CustomFreeLookCamera freeLookCamera;
     public List<GameObject> rooms;
+    public LightController lightController;
     int currentRooms = 0;
     public bool debug = false;
     private List<int> randomizedRoomIndexes = new List<int>();
@@ -16,6 +17,10 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
+        // Randomize the lights.
+        lightController.NewDirectionLightColors();
+        lightController.NewPointLightColors();
+
         // Create a further randomization structure so that not all rooms have equal probability of creation.
         for(int roomIndex=0; roomIndex<rooms.Count; roomIndex++) {
             int randomCount = Random.Range(0, 50);
