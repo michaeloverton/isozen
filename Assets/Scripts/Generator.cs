@@ -1,20 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Cameras;
 
 public class Generator : MonoBehaviour
 {
-    public CameraController controller;
+    public CustomFreeLookCamera freeLookCamera;
     public List<GameObject> rooms;
+    public LightController lightController;
     int currentRooms = 0;
-    public int complexity = 200;
     public bool debug = false;
     private List<int> randomizedRoomIndexes = new List<int>();
     private bool randomScalingOn = false;
+    private int complexity = 0;
 
 
     void Start()
     {
+        // Randomize the lights.
+        lightController.NewDirectionLightColors();
+        lightController.NewPointLightColors();
+
         // Create a further randomization structure so that not all rooms have equal probability of creation.
         for(int roomIndex=0; roomIndex<rooms.Count; roomIndex++) {
             int randomCount = Random.Range(0, 50);
@@ -30,6 +36,15 @@ public class Generator : MonoBehaviour
             randomScalingOn = true;
         }
 
+        // Set the complexity, which has not been destroyed from the menu scene.
+        Complexity c = GameObject.FindObjectOfType<Complexity>();
+        // If we can't find it, just set complexity to default value.
+        if(c != null) {
+            complexity = c.getComplexity();
+        } else {
+            complexity = 500;
+        }
+
         StartCoroutine(build());
     }
 
@@ -38,10 +53,15 @@ public class Generator : MonoBehaviour
 
         List<GameObject> allRooms = new List<GameObject>();
 
+        GameObject structure = new GameObject("Structure");
+
         // Create start room.
         int startRoomIndex = Random.Range(0, rooms.Count);
         GameObject start = Instantiate(rooms[startRoomIndex], new Vector3(0,0,0), Quaternion.identity);
         allRooms.Add(start);
+
+        // Add start to the total structure.
+        start.transform.parent = structure.transform;
 
         // Get all connections leaving start room.
         List<GameObject> connections = start.GetComponent<RoomConnections>().connections;
@@ -160,23 +180,20 @@ public class Generator : MonoBehaviour
                 }
             }
 
+            // Add the room to the total structure.
+            room.transform.parent = structure.transform;
+
             // Activate room since it has been successfully placed.
             room.SetActive(true);
-        }
-
-        // Finally, disable all the bounding boxes we used for construction.
-        foreach(GameObject builtRoom in allRooms) {
-            foreach(Renderer boundingBox in builtRoom.GetComponent<RoomConnections>().boundingBoxes) {
-                if(boundingBox) {
-                    boundingBox.enabled = false;
-                }
-            }
         }
 
         Log(allRooms.Count + " rooms created");
 
         // Allow the controller to move.
-        controller.setCanMove(true);
+        // controller.setCanMove(true);
+
+        // Set the target to be the center of the created structure.
+        freeLookCamera.SetTarget(structure.transform);
     }
 
     void Log(string message) {

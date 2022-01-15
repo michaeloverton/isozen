@@ -16,37 +16,37 @@ public class Splittable : MonoBehaviour
     {
         originalPosition = transform.position;
 
-        controller = GameObject.Find("Isometric Camera").GetComponent<CameraController>();
-        if(controller == null) {
-            throw new System.Exception("failed to find controller");
-        }
+        // controller = GameObject.Find("Isometric Camera").GetComponent<CameraController>();
+        // if(controller == null) {
+        //     throw new System.Exception("failed to find controller");
+        // }
     }
 
     void FixedUpdate()
     {
-        if(controller.isSplitting()) {
+        // if(controller.isSplitting()) {
 
-            Vector3 splittingVector = controller.getSplittingVector();
-            Vector3 touchLocationToSplittingObject = transform.position - controller.getTouchLocation().position;
-            Vector3 closestPoint = Vector3.Project(touchLocationToSplittingObject, splittingVector);
-            Vector3 normal = touchLocationToSplittingObject - closestPoint;
+        //     Vector3 splittingVector = controller.getSplittingVector();
+        //     Vector3 touchLocationToSplittingObject = transform.position - controller.getTouchLocation().position;
+        //     Vector3 closestPoint = Vector3.Project(touchLocationToSplittingObject, splittingVector);
+        //     Vector3 normal = touchLocationToSplittingObject - closestPoint;
 
-            // Maybe remove the max repulsion concept since it might feel better without.
-            float normalMagnitude = Vector3.Magnitude(normal);
-            if(normalMagnitude < maxRepulsionDistance) {
-                float inverseNormalMagnitude = 1/Mathf.Pow(normalMagnitude, 1);
-                transform.Translate(repulsionIntensity * inverseNormalMagnitude * normal * Time.fixedDeltaTime, Space.World);
+        //     // Maybe remove the max repulsion concept since it might feel better without.
+        //     float normalMagnitude = Vector3.Magnitude(normal);
+        //     if(normalMagnitude < maxRepulsionDistance) {
+        //         float inverseNormalMagnitude = 1/Mathf.Pow(normalMagnitude, 1);
+        //         transform.Translate(repulsionIntensity * inverseNormalMagnitude * normal * Time.fixedDeltaTime, Space.World);
 
-            } else if(Vector3.Distance(originalPosition, transform.position) > positionTolerance) {
-                returnToOriginalPosition();
-            }
+        //     } else if(Vector3.Distance(originalPosition, transform.position) > positionTolerance) {
+        //         returnToOriginalPosition();
+        //     }
 
-        } else {
-            // Otherwise, move the repelled object back towards its original position.
-            if(Vector3.Distance(originalPosition, transform.position) > positionTolerance) {
-                returnToOriginalPosition();
-            }
-        }
+        // } else {
+        //     // Otherwise, move the repelled object back towards its original position.
+        //     if(Vector3.Distance(originalPosition, transform.position) > positionTolerance) {
+        //         returnToOriginalPosition();
+        //     }
+        // }
     }
 
     void returnToOriginalPosition() {
