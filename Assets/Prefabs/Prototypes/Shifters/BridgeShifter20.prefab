@@ -202,9 +202,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8581645479709062354}
   - component: {fileID: 5084384867940402720}
-  - component: {fileID: 8826305128370167039}
-  - component: {fileID: 6946186765216450061}
-  - component: {fileID: 4022321623758552983}
   - component: {fileID: 7322780412518140009}
   m_Layer: 0
   m_Name: BridgeShifter20
@@ -246,51 +243,6 @@ MonoBehaviour:
   connections:
   - {fileID: 8926114693260713427}
   - {fileID: 8578875631313540003}
---- !u!95 &8826305128370167039
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3795372062666519164}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 52be592ec9d275b498d0ea8503d360b4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6946186765216450061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3795372062666519164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921ba975ebc9fee4f83355ee89a0665e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4022321623758552983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3795372062666519164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a559c153738f6ef4582e0d35c2728f31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reboundSpeed: 0.5
-  positionTolerance: 0.1
 --- !u!65 &7322780412518140009
 BoxCollider:
   m_ObjectHideFlags: 0

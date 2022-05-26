@@ -53,6 +53,9 @@ public class Generator : MonoBehaviour
 
         List<GameObject> allRooms = new List<GameObject>();
 
+        // We store all connections in order to delete them later.
+        List<GameObject> allConnections = new List<GameObject>();
+
         GameObject structure = new GameObject("Structure");
 
         // Create start room.
@@ -70,6 +73,7 @@ public class Generator : MonoBehaviour
         Queue<GameObject> allExits = new Queue<GameObject>();
         foreach(GameObject connection in connections) {
             allExits.Enqueue(connection);
+            allConnections.Add(connection);
         }
 
         while(currentRooms <= complexity) {
@@ -117,6 +121,11 @@ public class Generator : MonoBehaviour
             List<GameObject> roomConnections = roomComponent.connections;
             int firstConnectionIndexToTry = Random.Range(0, roomConnections.Count);
             int currentConnectionIndex = firstConnectionIndexToTry;
+
+            // Add all connections from this room to our total list of connections.
+            foreach(GameObject c in roomConnections) {
+                allConnections.Add(c);
+            }
 
             ChooseEntrance:
             
@@ -194,6 +203,11 @@ public class Generator : MonoBehaviour
 
         // Set the target to be the center of the created structure.
         freeLookCamera.SetTarget(structure.transform);
+
+        // Delete all of the connection GameObjects.
+        foreach(GameObject c in allConnections) {
+            Destroy(c);
+        }
     }
 
     void Log(string message) {
